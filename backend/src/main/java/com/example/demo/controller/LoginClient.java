@@ -39,14 +39,14 @@ public class LoginClient extends HttpServlet {
         JSONObject json = new JSONObject(sb.toString());
         System.out.println(json);
         
-        String ip = json.getString("ip");
-        json.remove("ip");
+        // String ip = json.getString("ip");
+        // json.remove("ip");
         Gson g = new Gson();
         Login login = g.fromJson(json.toString(), Login.class);
 
         CRUD crud = new CRUD();
         JSONArray arrayJson = new JSONArray();
-        arrayJson = crud.loginClient(login,ip);
+        arrayJson = crud.loginClient(login);
 
         response.getWriter().write((arrayJson).toString());
       }

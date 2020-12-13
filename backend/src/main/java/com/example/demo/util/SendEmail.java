@@ -14,7 +14,9 @@ import javax.mail.internet.MimeMessage;
 import com.example.demo.DAO.procedure.CallerClient;
 import com.example.demo.entity.Login;
 
-public class SendEmail {
+public class SendEmail implements Runnable{
+  Thread thread;
+  Message message;
 
   public void sendUserPass(String email) {
 
@@ -48,16 +50,17 @@ public class SendEmail {
 
     try {
 
-        Message message = new MimeMessage(session);
-        message.setFrom(new InternetAddress(username));
-        message.setRecipients(Message.RecipientType.TO,
+        this.message = new MimeMessage(session);
+        this.message.setFrom(new InternetAddress(username));
+        this.message.setRecipients(Message.RecipientType.TO,
             InternetAddress.parse(email));
-        message.setSubject("Nuevo Registro");
-        message.setText("Usuario y contraseña,"
+        this.message.setSubject("Nuevo Registro");
+        this.message.setText("Usuario y contraseña,"
             + "\n\n Usuario : "+login.getUser()
             + "\n\n Contraseña : "+login.getPassword());
 
-        Transport.send(message);
+        this.thread = new Thread(this,"mailThread");
+        this.thread.start();
     } 
 
     catch (MessagingException e) 
@@ -102,20 +105,31 @@ public void sendUserBlocked(Login client) {
 
   try {
 
-      Message message = new MimeMessage(session);
-      message.setFrom(new InternetAddress(username));
-      message.setRecipients(Message.RecipientType.TO,
+      this.message = new MimeMessage(session);
+      this.message.setFrom(new InternetAddress(username));
+      this.message.setRecipients(Message.RecipientType.TO,
           InternetAddress.parse(email));
-      message.setSubject("Bloqueo de cuenta");
-      message.setText("Esta cuenta ha sido bloqueada por actividad sospechosa"
+      this.message.setSubject("Bloqueo de cuenta");
+      this.message.setText("Esta cuenta ha sido bloqueada por actividad sospechosa"
           + "\n\n Use este enlace para desbloquearla : " + enlaceRecuperacion+"u="+user+"&uuid="+uuid);
 
-      Transport.send(message);
+
+      this.thread = new Thread(this,"mailThread");
+      this.thread.start();
   } 
 
   catch (MessagingException e) 
   {
       e.printStackTrace();
+  }
+}
+
+@Override
+public void run() {
+  try {
+    Transport.send(this.message);
+  } catch (MessagingException e) {
+    e.printStackTrace();
   }
 }
 }

@@ -24,11 +24,11 @@ public class CRUD {
   HashMap<String, ArrayList<ErrorValidate>> errorsValidation = new HashMap<String, ArrayList<ErrorValidate>>();
   HashMap<String, ErrorVerify> errorsVerification = new HashMap<String, ErrorVerify>();
   JSONArray arrayJson = new JSONArray();
+  CallerClient caller;
 
   public JSONArray addClient(Client client,String ip) {
     errorsValidation = getErrorsLength(client);
     Boolean error = false;
-    CallerClient callerClient;
     if (errorsValidation.isEmpty()) {
       errorsValidation = getErrorsValue(client);
       if (errorsValidation.isEmpty()) {
@@ -39,9 +39,12 @@ public class CRUD {
         }
         if (errorsVerification.isEmpty()) {
           try {
-            callerClient = new CallerClient();
+            caller = new CallerClient();
 
-            if (callerClient.addClient(client)) {
+            if (caller.addClient(client)) {
+              int idClient = caller.getClientID(caller.getClient(client.getEmail()).getUser());
+              RequestContextHolder.currentRequestAttributes().setAttribute("idClient", idClient,
+                RequestAttributes.SCOPE_SESSION);
               successfullAction("addClient");
               
               SendEmail mail = new SendEmail();
@@ -85,7 +88,7 @@ public class CRUD {
     return arrayJson;
   }
 
-  public JSONArray loginClient(Login client,String ip){
+  public JSONArray loginClient(Login client){
     CallerClient caller;
     errorsValidation = getErrorsLength(client);
     Boolean error = false;
@@ -99,6 +102,14 @@ public class CRUD {
         }
         if (errorsVerification.isEmpty()) {
           successfullAction("loginClient");
+          int idClient = 0;
+          try {
+           caller = new CallerClient();
+           idClient = caller.getClientID(client.getUser()); 
+          } catch (Exception e) {
+          }
+          RequestContextHolder.currentRequestAttributes().setAttribute("idClient", idClient,
+          RequestAttributes.SCOPE_SESSION);
         } else {
           int contador = Integer.parseInt(RequestContextHolder.currentRequestAttributes().getAttribute("intentos",
           RequestAttributes.SCOPE_SESSION).toString());
@@ -119,7 +130,7 @@ public class CRUD {
                 oneJson.put("errorboxSubmit", "boxerror_submit");
                 arrayJson.put(oneJson);
               }else{
-                caller.blockIP(ip);
+                // caller.blockIP(ip);
                 JSONObject oneJson = new JSONObject();
                 oneJson.put("error", 2);
                 oneJson.put("message", "Sobrepasado el numero de intentos");
@@ -219,6 +230,7 @@ public class CRUD {
   private void successfullAction(String action) {
     RequestContextHolder.currentRequestAttributes().setAttribute("activePage", "client",
     RequestAttributes.SCOPE_SESSION);
+    
     JSONObject oneJson = new JSONObject();
     oneJson.put("error", 0);
     oneJson.put("validation", "ok");

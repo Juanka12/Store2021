@@ -8,6 +8,8 @@ import com.example.demo.DAO.GetConnectionMySql;
 import com.example.demo.entity.Client;
 import com.example.demo.entity.Login;
 
+import org.json.JSONObject;
+
 public class CallerClient extends GetConnectionMySql {
 
   public CallerClient() throws SQLException, ClassNotFoundException {
@@ -135,10 +137,28 @@ public class CallerClient extends GetConnectionMySql {
     cstmt.execute();
   }
 
+  public int getClientID(String user) throws SQLException {
+    CallableStatement cstmt = (CallableStatement) connection.prepareCall("{call GetClientID(?,?)}");
+
+    cstmt.setString(1, user);
+    cstmt.registerOutParameter(2, Types.TINYINT);
+    cstmt.execute();
+
+    return cstmt.getInt(2);
+  }
   public void blockIP(String ip) throws SQLException {
     CallableStatement cstmt = (CallableStatement) connection.prepareCall("{call blockIP(?)}");
 
     cstmt.setString(1, ip);
+    cstmt.execute();
+  }
+  public void registerIP(JSONObject json) throws SQLException {
+    CallableStatement cstmt = (CallableStatement) connection.prepareCall("{call RegisterIP(?,?,?,?)}");
+
+    cstmt.setString(1, json.getString("ip"));
+    cstmt.setString(2, json.getString("city"));
+    cstmt.setString(3, json.getString("country"));
+    cstmt.setInt(4, json.getInt("idClient"));
     cstmt.execute();
   }
 }

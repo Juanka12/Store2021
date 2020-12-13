@@ -47,12 +47,8 @@ d.addEventListener("click", (e) => {
   if (e.target.id == "submit") {
     const dataControl = managerFunctions.getDataControls();
     managerFunctions.loader().on();
-    managerFunctions.getGeo().then(function(result){
-      let ip = result.geoplugin_request;
-      managerFunctions.ajaxForm({
-        url,dataControl,ip
-      });
-             
+    managerFunctions.ajaxForm({
+      url,dataControl
     });
    }
 });

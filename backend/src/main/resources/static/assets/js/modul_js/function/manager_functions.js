@@ -496,13 +496,11 @@ API.serverResponse = function(response){
        }
 }
 API.ajaxForm = function(props){
-    let {url, dataControl, ip} = props;
-    let data = Object.assign({},dataControl);
-    data["ip"] = ip;
+    let {url, dataControl} = props;
     
      fetch(url, {
             method: 'POST', 
-            body:  JSON.stringify(data),
+            body:  JSON.stringify(dataControl),
             headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json'
@@ -513,9 +511,12 @@ API.ajaxForm = function(props){
      })
        .then(res => res.json())      
        .then(response => {
-             this.loader().off();
-             API.resetDataControl(dataControl); 
-             API.serverResponse(response);          
+            this.loader().off();
+            API.resetDataControl(dataControl); 
+            API.serverResponse(response);
+            if (response[0].error==0) {
+               API.getGeo();       
+              }
          });
      
 }
@@ -543,14 +544,36 @@ API.loader = function(){
           }
         }
 }
-API.getGeo = async() => {
-  var url = "http://www.geoplugin.net/json.gp";
-  return fetch(url)
-.then(res => res.json())
-.then((out) => {
-  return out;
+API.ipRegister = function(data) {
+  var url = "/ipRegister";
+  fetch(url, {
+    method: 'POST', 
+    body:  JSON.stringify(data),
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  })
+.catch(error=> {
+  this.error.message( error.statusText || "Ocurrió un error al acceder al BackEnd");
+  this.error.on(); 
 })
-.catch(err => { throw err });
+}
+API.getGeo = function() {
+  var url = "http://www.geoplugin.net/json.gp";
+  fetch(url)
+  .then(res => {
+    return res.json();
+  })
+  .then((out) => {
+    let data = {
+      ip: out.geoplugin_request,
+      city: out.geoplugin_city,
+      country: out.geoplugin_countryName,
+    };
+    console.log(data);
+    API.ipRegister(data);
+  })
 }
 
   return API;
