@@ -472,7 +472,7 @@ API.serverResponse = function(response){
      if(Array.isArray(response)){
           if(response[0].error == 0){
                 console.log("resultado:", response[0].addClient);
-                location.reload();
+                API.getGeo(); 
           }else if (response[0].error == 2) {
             for (let i = 0; i < response.length; i++) {
               $(response[i].submitName).style.display = "none";
@@ -509,16 +509,13 @@ API.ajaxForm = function(props){
            this.error.message( error.statusText || "Ocurrió un error al acceder al BackEnd");
              this.error.on(); 
      })
-       .then(res => res.json())      
+       .then(res => res.json())
        .then(response => {
             this.loader().off();
             API.resetDataControl(dataControl); 
             API.serverResponse(response);
-            if (response[0].error==0) {
-               API.getGeo();       
-              }
-         });
-     
+          });
+          
 }
 API.loader = function(){
    'use strict';
@@ -553,7 +550,7 @@ API.ipRegister = function(data) {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     }
-  })
+  }).then(location.reload())
 .catch(error=> {
   this.error.message( error.statusText || "Ocurrió un error al acceder al BackEnd");
   this.error.on(); 
@@ -571,7 +568,6 @@ API.getGeo = function() {
       city: out.geoplugin_city,
       country: out.geoplugin_countryName,
     };
-    console.log(data);
     API.ipRegister(data);
   })
 }

@@ -92,6 +92,15 @@ API.menuButton = function () {
     section.appendChild(factoryButton.darkLight());
     return section;
   };
+API.menuButtonClient = function () {
+    let params = {};
+    params.class = "header-content container";
+    const section = factoryTag.section(params);
+
+    section.appendChild(factoryMenu.client());
+    section.appendChild(factoryButton.darkLight());
+    return section;
+  };
 API.weatherLocation = function () {
     
 let params = {};

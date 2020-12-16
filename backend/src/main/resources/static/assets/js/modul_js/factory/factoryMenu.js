@@ -11,11 +11,9 @@ export function FactoryMenu() {
       "#",
       "assets/subpage/contacto.html",
     ];
-    const text = ["home", "Login", "Register", "Contacto"];
+    const text = ["Home", "Login", "Register", "Contacto"];
     const id = ["linkHome", "linkLogin", "linkRegister", "linkContacto"];
-    /*
-    params.class = "header-content container";
-    const section = factoryTag.section(params); */
+
     params.class = "menu";
     const nav = factoryTag.nav(params);
     params = {};
@@ -26,19 +24,33 @@ export function FactoryMenu() {
       const a = factoryTag.a(params);
       nav.appendChild(a);
     }
-    /*
-    params = {};
-    params.href = "assets/subpage/home.html";
-    params.text = "Home";
-    const home = factoryTag.a(params);
-    nav.appendChild(home);*/
-
-    //section.appendChild(nav);
-
-    //**************Botón claro oscuro */
 
     return nav;
   };
+
+  API.client = function () {
+    const href = [
+      "#",
+      "#",
+      "#",
+      "#",
+    ];
+    const text = ["Update Personal Info", "Update Account Info", "Update Avatar", "Logout"];
+    const id = ["updatePersonal", "updateAccount", "updateAvatar", "logout"];
+
+    params.class = "menu";
+    const nav = factoryTag.nav(params);
+    params = {};
+    for (let i = 0; i < href.length; i++) {
+      params.href = href[i];
+      params.text = text[i];
+      params.id = id[i];
+      const a = factoryTag.a(params);
+      nav.appendChild(a);
+    }
+
+    return nav;
+  }
 
   return API;
 }

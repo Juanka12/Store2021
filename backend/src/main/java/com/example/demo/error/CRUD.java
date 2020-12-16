@@ -102,14 +102,13 @@ public class CRUD {
         }
         if (errorsVerification.isEmpty()) {
           successfullAction("loginClient");
-          int idClient = 0;
           try {
            caller = new CallerClient();
-           idClient = caller.getClientID(client.getUser()); 
+           int idClient = caller.getClientID(client.getUser()); 
+           RequestContextHolder.currentRequestAttributes().setAttribute("idClient", idClient,
+           RequestAttributes.SCOPE_SESSION);
           } catch (Exception e) {
           }
-          RequestContextHolder.currentRequestAttributes().setAttribute("idClient", idClient,
-          RequestAttributes.SCOPE_SESSION);
         } else {
           int contador = Integer.parseInt(RequestContextHolder.currentRequestAttributes().getAttribute("intentos",
           RequestAttributes.SCOPE_SESSION).toString());
@@ -173,6 +172,14 @@ public class CRUD {
       }
     }
     return arrayJson;
+  }
+
+  public void logoutClient(){
+    RequestContextHolder.currentRequestAttributes().setAttribute("activePage", "index",
+    RequestAttributes.SCOPE_SESSION);
+
+    RequestContextHolder.currentRequestAttributes().setAttribute("idClient", null,
+    RequestAttributes.SCOPE_SESSION);
   }
 
   private HashMap<String, ArrayList<ErrorValidate>> getErrorsValue(Client client) {

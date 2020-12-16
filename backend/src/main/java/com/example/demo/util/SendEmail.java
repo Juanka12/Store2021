@@ -69,7 +69,7 @@ public class SendEmail implements Runnable{
     }
 }
 
-public void sendUserBlocked(Login client) {
+  public void sendUserBlocked(Login client) {
 
   // Cambiar esto https://www.google.com/settings/security/lesssecureapps
 
