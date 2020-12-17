@@ -572,5 +572,17 @@ API.getGeo = function() {
   })
 }
 
+API.fillRegister = function(out) {
+  console.log(out);
+  const inputs =  Qa("input[data-validate]");
+  for (let i = 0; i < inputs.length; i++) {
+    inputs[i].value = out[inputs[i].id];
+  }
+}
+
+API.fillLogin = function(out) {
+  console.log(out);
+}
+
   return API;
 }

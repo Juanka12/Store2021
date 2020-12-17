@@ -182,6 +182,18 @@ public class CRUD {
     RequestAttributes.SCOPE_SESSION);
   }
 
+  public JSONArray clientData(){
+    int idClient = (int) RequestContextHolder.currentRequestAttributes().getAttribute("idClient",
+        RequestAttributes.SCOPE_SESSION);
+    try {
+      caller = new CallerClient();
+      arrayJson = caller.getAllDataClient(idClient);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return arrayJson;
+  }
+
   private HashMap<String, ArrayList<ErrorValidate>> getErrorsValue(Client client) {
     HashMap<String, ArrayList<ErrorValidate>> errorsAll = new HashMap<>();
     errorsAll = new AddErrorArrayError(new ValidatorValueComposite().validate(client), errorsAll).getErrorsAll();

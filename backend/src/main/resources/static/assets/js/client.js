@@ -23,7 +23,9 @@ d.addEventListener("DOMContentLoaded", (e) => {
 d.addEventListener("click", (e) => {
 
   if (e.target.id == "updatePersonal") {
-    console.log("personal");
+    url = "/getClientData";
+    const globalFunction = new GeneralPurposeFunctions();
+    globalFunction.resetAutoIncrementPhoneCP();
     let myBody = $("myBody");
     myBody.innerHTML = "";
     myBody.appendChild(viewClient.register());    
@@ -31,23 +33,31 @@ d.addEventListener("click", (e) => {
     managerFunctions.phone();   
     managerFunctions.saveDataControls();
     managerFunctions.showIniStrategy(STRATEGY.ALL);
+    fetch(url)
+    .then(res => res.json())
+    .then(out => {
+      managerFunctions.fillRegister(out[0])
+    });
   }
   if (e.target.id == "updateAccount") {
-    console.log("updateAccount");
+    url = "/getClientData";
     let myBody = $("myBody");
     myBody.innerHTML = "";
     myBody.appendChild(viewClient.login());
     managerFunctions.validations();
     managerFunctions.saveDataControls();
     managerFunctions.showIniStrategy(STRATEGY.ALL);
+    fetch(url)
+    .then(res => res.json())
+    .then(out => {
+      managerFunctions.fillLogin(out[0])
+    });
   }
   if (e.target.id == "updateAvatar") {
     console.log("updateAvatar");
   }
   if (e.target.id == "logout") {
-    console.log("logout");
     url = "/logout";
-
     fetch(url)
     .then(location.reload())
   }

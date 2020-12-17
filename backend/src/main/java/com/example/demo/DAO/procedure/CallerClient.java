@@ -8,6 +8,7 @@ import com.example.demo.DAO.GetConnectionMySql;
 import com.example.demo.entity.Client;
 import com.example.demo.entity.Login;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class CallerClient extends GetConnectionMySql {
@@ -106,6 +107,54 @@ public class CallerClient extends GetConnectionMySql {
 
     Login login = new Login(cstmt.getString(2), cstmt.getString(3));
     return login;
+  }
+  public JSONArray getAllDataClient(int id) throws SQLException {
+    CallableStatement cstmt = (CallableStatement) connection.prepareCall("{call GetDataClient(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+
+    cstmt.setInt(1, id);
+    cstmt.registerOutParameter(2, Types.VARCHAR);
+    cstmt.registerOutParameter(3, Types.VARCHAR);
+    cstmt.registerOutParameter(4, Types.CHAR);
+    cstmt.registerOutParameter(5, Types.CHAR);
+    cstmt.registerOutParameter(6, Types.VARCHAR);
+    cstmt.registerOutParameter(7, Types.DATE);
+    cstmt.registerOutParameter(8, Types.VARCHAR);
+    cstmt.registerOutParameter(9, Types.VARCHAR);
+    cstmt.registerOutParameter(10, Types.VARCHAR);
+    cstmt.registerOutParameter(11, Types.VARCHAR);
+    cstmt.execute();
+
+    JSONArray json = new JSONArray();
+    JSONObject oneJson = new JSONObject();
+    oneJson.put("name", cstmt.getString(2));
+    oneJson.put("surname", cstmt.getString(3));
+    oneJson.put("nif", cstmt.getString(4));
+    oneJson.put("phone_0", cstmt.getString(5));
+    oneJson.put("email", cstmt.getString(6));
+    oneJson.put("birthdate", cstmt.getString(7));
+    oneJson.put("cp0", cstmt.getString(8));
+    oneJson.put("address", cstmt.getString(9));
+    oneJson.put("user", cstmt.getString(10));
+    oneJson.put("password", cstmt.getString(11));
+    json.put(oneJson);
+    return json;
+
+//     DELIMITER $$
+// CREATE DEFINER=`root`@`localhost` PROCEDURE `GetDataClient`(IN `_id` INT(4), OUT `_name` VARCHAR(50), OUT `_surname` VARCHAR(100), OUT `_nif` CHAR(9), OUT `_mobile` CHAR(20), OUT `_email` VARCHAR(150), OUT `_birth` DATE, OUT `_postalc` VARCHAR(5), OUT `_address` VARCHAR(100), OUT `_user` VARCHAR(30), OUT `_pass` VARCHAR(50))
+//     NO SQL
+// BEGIN
+// SET _name = (SELECT nameClient FROM mobile_store_2021.client WHERE idClient = _id);
+// SET _surname = (SELECT surnameClient FROM mobile_store_2021.client WHERE idClient = _id);
+// SET _nif = (SELECT nifClient FROM mobile_store_2021.client WHERE idClient = _id);
+// SET _mobile = (SELECT mobileClient FROM mobile_store_2021.client WHERE idClient = _id);
+// SET _email = (SELECT emailClient FROM mobile_store_2021.client WHERE idClient = _id);
+// SET _birth = (SELECT birthdateClient FROM mobile_store_2021.client WHERE idClient = _id);
+// SET _postalc = (SELECT postalCodeClient FROM mobile_store_2021.client WHERE idClient = _id);
+// SET _address = (SELECT clientAddress FROM mobile_store_2021.client WHERE idClient = _id);
+// SET _user = (SELECT user FROM mobile_store_2021.client WHERE idClient = _id);
+// SET _pass = (SELECT password FROM mobile_store_2021.client WHERE idClient = _id);
+// END$$
+// DELIMITER ;
   }
 
   public void unlockUser(String uuid,String user) throws SQLException {
