@@ -194,6 +194,28 @@ public class CRUD {
     return arrayJson;
   }
 
+  public JSONArray updateClient(org.json.JSONObject json) {
+
+    if (json.has("user")) {
+      String user = json.getString("user");
+      try {
+        caller = new CallerClient();
+        caller.updateClient(user);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }else{
+      try {
+        caller = new CallerClient();
+        caller.updateClient(json);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+    successfullAction("update");
+    return arrayJson;
+  }
+
   private HashMap<String, ArrayList<ErrorValidate>> getErrorsValue(Client client) {
     HashMap<String, ArrayList<ErrorValidate>> errorsAll = new HashMap<>();
     errorsAll = new AddErrorArrayError(new ValidatorValueComposite().validate(client), errorsAll).getErrorsAll();

@@ -112,7 +112,7 @@ API.scrollTop = function (btn) {
 
 API.validations = function () {
     d.addEventListener("keyup", (e) => {
-      if (e.target.matches("[data-validate]")) {    
+      if (e.target.matches("[data-validate]")) {   
           ( e.code == "Enter"  || e.code == "Tab") ?  eval(sS.getItem("strategy")): eval(e.target.dataset.validate + "(e)");        
       }     
     });
@@ -572,16 +572,12 @@ API.getGeo = function() {
   })
 }
 
-API.fillRegister = function(out) {
+API.fillData = function(out) {
   console.log(out);
   const inputs =  Qa("input[data-validate]");
   for (let i = 0; i < inputs.length; i++) {
     inputs[i].value = out[inputs[i].id];
   }
-}
-
-API.fillLogin = function(out) {
-  console.log(out);
 }
 
   return API;

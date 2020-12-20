@@ -36,7 +36,7 @@ d.addEventListener("click", (e) => {
     fetch(url)
     .then(res => res.json())
     .then(out => {
-      managerFunctions.fillRegister(out[0])
+      managerFunctions.fillData(out[0])
     });
   }
   if (e.target.id == "updateAccount") {
@@ -50,7 +50,7 @@ d.addEventListener("click", (e) => {
     fetch(url)
     .then(res => res.json())
     .then(out => {
-      managerFunctions.fillLogin(out[0])
+      managerFunctions.fillData(out[0])
     });
   }
   if (e.target.id == "updateAvatar") {
@@ -60,6 +60,14 @@ d.addEventListener("click", (e) => {
     url = "/logout";
     fetch(url)
     .then(location.reload())
+  }
+  if (e.target.id == "submit") {
+    url = "/updateClient";
+    const dataControl = managerFunctions.getDataControls();
+    managerFunctions.loader().on();
+    managerFunctions.ajaxForm({
+      url,dataControl
+    });
   }
 
 });

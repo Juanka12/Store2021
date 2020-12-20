@@ -10,6 +10,8 @@ import com.example.demo.entity.Login;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
 
 public class CallerClient extends GetConnectionMySql {
 
@@ -138,23 +140,32 @@ public class CallerClient extends GetConnectionMySql {
     oneJson.put("password", cstmt.getString(11));
     json.put(oneJson);
     return json;
+  }
 
-//     DELIMITER $$
-// CREATE DEFINER=`root`@`localhost` PROCEDURE `GetDataClient`(IN `_id` INT(4), OUT `_name` VARCHAR(50), OUT `_surname` VARCHAR(100), OUT `_nif` CHAR(9), OUT `_mobile` CHAR(20), OUT `_email` VARCHAR(150), OUT `_birth` DATE, OUT `_postalc` VARCHAR(5), OUT `_address` VARCHAR(100), OUT `_user` VARCHAR(30), OUT `_pass` VARCHAR(50))
-//     NO SQL
-// BEGIN
-// SET _name = (SELECT nameClient FROM mobile_store_2021.client WHERE idClient = _id);
-// SET _surname = (SELECT surnameClient FROM mobile_store_2021.client WHERE idClient = _id);
-// SET _nif = (SELECT nifClient FROM mobile_store_2021.client WHERE idClient = _id);
-// SET _mobile = (SELECT mobileClient FROM mobile_store_2021.client WHERE idClient = _id);
-// SET _email = (SELECT emailClient FROM mobile_store_2021.client WHERE idClient = _id);
-// SET _birth = (SELECT birthdateClient FROM mobile_store_2021.client WHERE idClient = _id);
-// SET _postalc = (SELECT postalCodeClient FROM mobile_store_2021.client WHERE idClient = _id);
-// SET _address = (SELECT clientAddress FROM mobile_store_2021.client WHERE idClient = _id);
-// SET _user = (SELECT user FROM mobile_store_2021.client WHERE idClient = _id);
-// SET _pass = (SELECT password FROM mobile_store_2021.client WHERE idClient = _id);
-// END$$
-// DELIMITER ;
+  public void updateClient(JSONObject json) throws SQLException {
+    int idClient = (int) RequestContextHolder.currentRequestAttributes().getAttribute("idClient",
+        RequestAttributes.SCOPE_SESSION);
+    CallableStatement cstmt = (CallableStatement) connection.prepareCall("{call UpdateClient(?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+
+    cstmt.setString(1, json.getString("name"));
+    cstmt.setString(2, json.getString("surname"));
+    cstmt.setString(3, json.getString("nif"));
+    cstmt.setString(4, json.getString("mobile"));
+    cstmt.setString(5, json.getString("email"));
+    cstmt.setString(6, json.getString("birthdate"));
+    cstmt.setString(7, json.getString("postalCode"));
+    cstmt.setString(8, json.getString("address"));
+    cstmt.setInt(9, idClient);
+    cstmt.execute();
+  }
+  public void updateClient(String user) throws SQLException {
+    int idClient = (int) RequestContextHolder.currentRequestAttributes().getAttribute("idClient",
+        RequestAttributes.SCOPE_SESSION);
+    CallableStatement cstmt = (CallableStatement) connection.prepareCall("{call UpdateClientLogin(?, ?)}");
+
+    cstmt.setString(1, user);
+    cstmt.setInt(2, idClient);
+    cstmt.execute();
   }
 
   public void unlockUser(String uuid,String user) throws SQLException {
