@@ -14,5 +14,10 @@ export function ViewClient() {
     const factoryView = FactoryView();
     return factoryView.clientLogin();
   }
+
+  API.avatar = function() {
+    const factoryView = FactoryView();
+    return factoryView.updateAvatar();
+  }
   return API;
 }

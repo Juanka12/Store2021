@@ -18,6 +18,7 @@ import com.example.demo.util.SendEmail;
 import com.example.demo.validate.ValidatorLengthComposite;
 import com.example.demo.validate.ValidatorValueComposite;
 import com.example.demo.verify.VerifyClient;
+import com.google.gson.Gson;
 
 public class CRUD {
   final int limiteLogin = 3;
@@ -196,23 +197,26 @@ public class CRUD {
 
   public JSONArray updateClient(org.json.JSONObject json) {
 
+    Gson gson = new Gson();
     if (json.has("user")) {
-      String user = json.getString("user");
+      Login login = gson.fromJson(json.toString(), Login.class);
       try {
         caller = new CallerClient();
-        caller.updateClient(user);
+        caller.updateClient(login);
+        successfullAction("update");
       } catch (Exception e) {
         e.printStackTrace();
       }
     }else{
+      Client client = gson.fromJson(json.toString(), Client.class);
       try {
         caller = new CallerClient();
-        caller.updateClient(json);
+        caller.updateClient(client);
+        successfullAction("update");
       } catch (Exception e) {
         e.printStackTrace();
       }
     }
-    successfullAction("update");
     return arrayJson;
   }
 

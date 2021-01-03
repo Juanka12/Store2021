@@ -100,5 +100,8 @@ export function FactoryView() {
     ];
     return createView(data, "Login Customer");
   }
+  API.updateAvatar = function(){
+    return factoryFrame.image();
+  }
   return API;
 }  

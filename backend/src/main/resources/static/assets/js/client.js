@@ -54,7 +54,37 @@ d.addEventListener("click", (e) => {
     });
   }
   if (e.target.id == "updateAvatar") {
-    console.log("updateAvatar");
+    url = "/updateAvatar";
+    let myBody = $("myBody");
+    myBody.innerHTML = "";
+    myBody.appendChild(viewClient.avatar());
+    var fileTag = document.getElementById("filetag");
+    var preview = document.getElementById("preview");
+    
+    fileTag.addEventListener("change", function() {
+      var reader;
+        reader = new FileReader();
+    
+        reader.onload = function(e) {
+          let img = e.target.result;
+          preview.setAttribute('src', img);
+          const data = {
+            file:this.result
+          }
+          console.log(data);
+          fetch(url, {
+            method: 'POST',
+            body:  JSON.stringify(data),
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            }
+          })
+        }
+        
+        reader.readAsDataURL(this.files[0]);
+        
+    });
   }
   if (e.target.id == "logout") {
     url = "/logout";

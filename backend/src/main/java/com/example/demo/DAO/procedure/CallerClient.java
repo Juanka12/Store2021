@@ -142,28 +142,28 @@ public class CallerClient extends GetConnectionMySql {
     return json;
   }
 
-  public void updateClient(JSONObject json) throws SQLException {
+  public void updateClient(Client client) throws SQLException {
     int idClient = (int) RequestContextHolder.currentRequestAttributes().getAttribute("idClient",
         RequestAttributes.SCOPE_SESSION);
     CallableStatement cstmt = (CallableStatement) connection.prepareCall("{call UpdateClient(?, ?, ?, ?, ?, ?, ?, ?, ?)}");
 
-    cstmt.setString(1, json.getString("name"));
-    cstmt.setString(2, json.getString("surname"));
-    cstmt.setString(3, json.getString("nif"));
-    cstmt.setString(4, json.getString("mobile"));
-    cstmt.setString(5, json.getString("email"));
-    cstmt.setString(6, json.getString("birthdate"));
-    cstmt.setString(7, json.getString("postalCode"));
-    cstmt.setString(8, json.getString("address"));
+    cstmt.setString(1, client.getName());
+    cstmt.setString(2, client.getSurname());
+    cstmt.setString(3, client.getNif());
+    cstmt.setString(4, client.getMobile());
+    cstmt.setString(5, client.getEmail());
+    cstmt.setString(6, client.getBirthdate());
+    cstmt.setString(7, client.getPostalCode());
+    cstmt.setString(8, client.getAddress());
     cstmt.setInt(9, idClient);
     cstmt.execute();
   }
-  public void updateClient(String user) throws SQLException {
+  public void updateClient(Login login) throws SQLException {
     int idClient = (int) RequestContextHolder.currentRequestAttributes().getAttribute("idClient",
         RequestAttributes.SCOPE_SESSION);
     CallableStatement cstmt = (CallableStatement) connection.prepareCall("{call UpdateClientLogin(?, ?)}");
 
-    cstmt.setString(1, user);
+    cstmt.setString(1, login.getUser());
     cstmt.setInt(2, idClient);
     cstmt.execute();
   }

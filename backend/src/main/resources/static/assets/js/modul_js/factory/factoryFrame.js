@@ -22,7 +22,6 @@ const input = function(params){
   const divBoxInput = factoryTag.div(params);
   divBoxInput.id = "divbox_input_" + params.id;
   params.class?divBoxInput.className = params.class : divBoxInput.className = "box-input"; 
-  //divBoxInput.setAttribute("data-divcontrol", "true");  
    params.class = "box-input-children";
   if(params.labelOn){
     params.for =  params.id;
@@ -56,7 +55,6 @@ const input = function(params){
   if(params.errorBox){
     const errorBox =  factoryBox.error();
     errorBox.id = "boxerror_" + params.id;
-    //errorBox.classList.add("box-input-children");
     divBoxInput.appendChild(errorBox);
   }
   if(params.infoBox){
@@ -152,7 +150,22 @@ API.divSubmit = function(params){
    error.style.display = "none";
   divSubmit.appendChild(error);
   return divSubmit;
-
 }
+
+API.image = function(){
+  let params = {};
+  params.id = "div_upload";
+  const imageUpload = factoryTag.div(params);
+  params.id = "filetag";
+  params.type = "file";
+  const selectFile = factoryTag.input(params);
+  params = {};
+  params.id = "preview";
+  const avatar = factoryTag.img(params);
+  imageUpload.appendChild(selectFile);
+  imageUpload.appendChild(avatar);
+  return imageUpload;
+}
+
   return API;
 }
