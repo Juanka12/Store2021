@@ -36,14 +36,14 @@ public class AddClient extends HttpServlet {
     JSONObject json = new JSONObject(sb.toString());
     System.out.println(json);
 
-    String ip = json.getString("ip");
-    json.remove("ip");
+    // String ip = json.getString("ip");
+    // json.remove("ip");
     Gson g = new Gson();
     Client client = g.fromJson(json.toString(), Client.class);
 
     CRUD crud = new CRUD();
     JSONArray arrayJson = new JSONArray();
-    arrayJson = crud.addClient(client,ip);
+    arrayJson = crud.addClient(client);
 
     response.getWriter().write((arrayJson).toString());
   }

@@ -13,6 +13,7 @@ import com.example.demo.DAO.procedure.CallerClient;
 import com.example.demo.entity.Client;
 import com.example.demo.entity.Login;
 import com.example.demo.util.AddErrorArrayError;
+import com.example.demo.util.GenerateString;
 import com.example.demo.util.GetDataControlFromValue;
 import com.example.demo.util.SendEmail;
 import com.example.demo.validate.ValidatorLengthComposite;
@@ -27,7 +28,7 @@ public class CRUD {
   JSONArray arrayJson = new JSONArray();
   CallerClient caller;
 
-  public JSONArray addClient(Client client,String ip) {
+  public JSONArray addClient(Client client) {
     errorsValidation = getErrorsLength(client);
     Boolean error = false;
     if (errorsValidation.isEmpty()) {
@@ -203,6 +204,8 @@ public class CRUD {
       try {
         caller = new CallerClient();
         caller.updateClient(login);
+        SendEmail mail = new SendEmail();
+        mail.sendNewPass(login);
         successfullAction("update");
       } catch (Exception e) {
         e.printStackTrace();
@@ -217,6 +220,28 @@ public class CRUD {
         e.printStackTrace();
       }
     }
+    return arrayJson;
+  }
+
+  public JSONArray newPassword(String dni){
+    String newPassword = GenerateString.getPassword(10);
+    try {
+      CallerClient caller = new CallerClient();
+      String email = caller.getMailByDni(dni);
+      String user = caller.getClient(email).getUser();
+      Login login = new Login(user,newPassword);
+      caller.updateClient(login);
+      SendEmail mail = new SendEmail();
+      mail.sendNewPass(login);
+      JSONObject oneJson = new JSONObject();
+      oneJson.put("error", 0);
+      oneJson.put("validation", "ok");
+      oneJson.put("verification", "ok");
+      oneJson.put("New Password", "ok");
+      arrayJson.put(oneJson);
+    } catch (Exception e) {
+      e.printStackTrace();
+    } 
     return arrayJson;
   }
 

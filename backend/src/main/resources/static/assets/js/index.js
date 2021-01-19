@@ -22,11 +22,11 @@ d.addEventListener("DOMContentLoaded", (e) => {
 });
 
 d.addEventListener("click", (e) => {
+  let myBody = $("myBody");
   if (e.target.id == "linkRegister") {
      url = "/addClient";
      const globalFunction = new GeneralPurposeFunctions();
       globalFunction.resetAutoIncrementPhoneCP();
-      let myBody = $("myBody");
       myBody.innerHTML = "";
       myBody.appendChild(viewClient.register());    
       managerFunctions.validations();     
@@ -36,12 +36,20 @@ d.addEventListener("click", (e) => {
   }
   if (e.target.id == "linkLogin") {
     url = "/loginClient";
-    let myBody = $("myBody");
     myBody.innerHTML = "";
     myBody.appendChild(viewClient.login());
     managerFunctions.validations();
     managerFunctions.saveDataControls();
     managerFunctions.showIniStrategy(STRATEGY.ALL);
+  }
+  if (e.target.id == "forgotPassword") {
+    url = "/forgotPassword";
+    myBody.innerHTML = "";
+    myBody.appendChild(viewClient.forgotPassword());
+    managerFunctions.validations();
+    managerFunctions.saveDataControls();
+    managerFunctions.showIniStrategy(STRATEGY.ALL);
+    $("informationPanel").innerHTML = "Le haremos llegar una nueva contraseña a su email";
   }
   if (e.target.id == "submit") {
     const dataControl = managerFunctions.getDataControls();

@@ -96,6 +96,7 @@ API.menuButtonClient = function () {
     const section = factoryTag.section(params);
 
     section.appendChild(factoryMenu.client());
+    section.appendChild(factoryImg.avatar());
     section.appendChild(factoryButton.darkLight());
     return section;
   };
@@ -150,6 +151,15 @@ API.divSubmit = function(params){
    error.style.display = "none";
   divSubmit.appendChild(error);
   return divSubmit;
+}
+
+API.divForgetPassword = function(params){
+  params = {};
+  params.id = "div_lostpassword";
+  const divLostPassword = factoryTag.div(params);
+  divLostPassword.style.display = "block";
+  divLostPassword.appendChild(factoryButton.forgetPassword());  
+  return divLostPassword;
 }
 
 API.image = function(){

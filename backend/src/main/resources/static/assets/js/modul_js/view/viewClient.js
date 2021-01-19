@@ -4,20 +4,22 @@ export function ViewClient() {
 
   
   const API = {};
+  const factoryView = FactoryView();
   
   API.register = function () {
-    const factoryView = FactoryView();
     return factoryView.clientRegister();
   };
 
   API.login = function () {
-    const factoryView = FactoryView();
     return factoryView.clientLogin();
   }
 
   API.avatar = function() {
-    const factoryView = FactoryView();
     return factoryView.updateAvatar();
+  }
+
+  API.forgotPassword = function() {
+    return factoryView.forgotPassword();
   }
   return API;
 }

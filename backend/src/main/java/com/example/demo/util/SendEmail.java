@@ -54,7 +54,7 @@ public class SendEmail implements Runnable{
         this.message.setFrom(new InternetAddress(username));
         this.message.setRecipients(Message.RecipientType.TO,
             InternetAddress.parse(email));
-        this.message.setSubject("Nuevo Registro");
+        this.message.setSubject("Nuevo Usuario");
         this.message.setText("Usuario y contraseña,"
             + "\n\n Usuario : "+login.getUser()
             + "\n\n Contraseña : "+login.getPassword());
@@ -124,6 +124,57 @@ public class SendEmail implements Runnable{
   }
 }
 
+  public void sendNewPass(Login login) {
+    // Cambiar esto https://www.google.com/settings/security/lesssecureapps
+
+  String email = null;
+  String user = null;
+  try {
+    CallerClient callerClient = new CallerClient();
+    email = callerClient.getMail(login.getUser());
+    user = login.getUser();
+  } catch (Exception e1) {
+    e1.printStackTrace();
+  }
+
+  final String username = "juankaInformacionPagina@gmail.com";
+  final String password = "1996empresa";
+
+  Properties props = new Properties();
+  props.put("mail.smtp.host", "smtp.gmail.com");
+  props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+  props.put("mail.smtp.starttls.enable", "true");
+  props.put("mail.smtp.auth", "true");
+  props.put("mail.smtp.port", "587");
+
+  Session session = Session.getInstance(props,
+    new javax.mail.Authenticator() {
+      protected PasswordAuthentication getPasswordAuthentication() {
+          return new PasswordAuthentication(username, password);
+      }
+    });
+
+  try {
+
+      this.message = new MimeMessage(session);
+      this.message.setFrom(new InternetAddress(username));
+      this.message.setRecipients(Message.RecipientType.TO,
+          InternetAddress.parse(email));
+      this.message.setSubject("Nueva Contraseña");
+      this.message.setText("Se ha solicitado una nueva contraseña para esta cuenta"
+          + "\n\n Usuario : "+user
+          + "\n\n Nueva Contraseña : "+login.getPassword());
+
+
+      this.thread = new Thread(this,"mailThread");
+      this.thread.start();
+  } 
+
+  catch (MessagingException e) 
+  {
+      e.printStackTrace();
+  }
+  }
 @Override
 public void run() {
   try {

@@ -74,6 +74,14 @@ public class CallerClient extends GetConnectionMySql {
     cstmt.execute();
     return cstmt.getString(2);
   }
+  public String getMailByDni(String dni) throws SQLException {
+    CallableStatement cstmt = (CallableStatement) connection.prepareCall("{call 	GetMailByDni(?, ?)}");
+    cstmt.setString(1, dni);
+    cstmt.registerOutParameter(2, Types.VARCHAR);
+    cstmt.execute();
+    return cstmt.getString(2);
+  }
+
 
   public Boolean existPassword(String user, String password) throws SQLException{
     CallableStatement cstmt = (CallableStatement) connection.prepareCall("{call 	PasswordExist_client(?, ?, ?)}");
@@ -138,6 +146,8 @@ public class CallerClient extends GetConnectionMySql {
     oneJson.put("address", cstmt.getString(9));
     oneJson.put("user", cstmt.getString(10));
     oneJson.put("password", cstmt.getString(11));
+    oneJson.put("id", (int) RequestContextHolder.currentRequestAttributes().getAttribute("idClient",
+    RequestAttributes.SCOPE_SESSION));
     json.put(oneJson);
     return json;
   }
@@ -159,12 +169,22 @@ public class CallerClient extends GetConnectionMySql {
     cstmt.execute();
   }
   public void updateClient(Login login) throws SQLException {
-    int idClient = (int) RequestContextHolder.currentRequestAttributes().getAttribute("idClient",
-        RequestAttributes.SCOPE_SESSION);
-    CallableStatement cstmt = (CallableStatement) connection.prepareCall("{call UpdateClientLogin(?, ?)}");
+    int idClient = 0;
+    try {
+      idClient = (int) RequestContextHolder.currentRequestAttributes().getAttribute("idClient",
+          RequestAttributes.SCOPE_SESSION);
+    } catch (Exception e) {
+      try {
+        idClient = getClientID(login.getUser());
+      } catch (Exception e1) {
+        e1.printStackTrace();
+      }
+    }
+    CallableStatement cstmt = (CallableStatement) connection.prepareCall("{call UpdateClientLogin(?, ?, ?)}");
 
     cstmt.setString(1, login.getUser());
-    cstmt.setInt(2, idClient);
+    cstmt.setString(2, login.getPassword());
+    cstmt.setInt(3, idClient);
     cstmt.execute();
   }
 

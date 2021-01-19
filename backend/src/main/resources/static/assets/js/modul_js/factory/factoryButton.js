@@ -56,7 +56,6 @@ export function FactoryButton() {
     const button = factoryTag.button(params);
     return button;
 
-    //<button class="scroll-top-btn hidden">&#11014;</button>
   };
   API.submit = function (display) {
     const button = document.createElement("input");
@@ -67,6 +66,17 @@ export function FactoryButton() {
     return button;
   };
   
+  API.forgetPassword = function(display){
+    let params = {};
+    params.id = "forgotPassword";
+    params.text = "Forgot Password";
+    const button = factoryTag.button(params);  
+    button.style.display= display || "block";  
+    button.style.color = "lightblue";
+    button.style.textDecoration = "underline";
+    button.style.fontWeight = "900";
+    return button;
+  };
 
   return API;
 }

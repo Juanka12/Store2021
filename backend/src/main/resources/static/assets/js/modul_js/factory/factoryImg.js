@@ -14,5 +14,13 @@ export function FactoryImg() {
     return factoryTag.img(params);
   };
 
+  API.avatar = function(){
+    params = {};
+    params.id = "avatar_frame";
+    params.class = "avatar_frame";
+    params.alt = "Avatar";
+    params.src = "";
+    return factoryTag.img(params);
+  }
   return API;
 }

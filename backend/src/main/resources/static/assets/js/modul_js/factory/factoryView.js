@@ -2,11 +2,13 @@ import {FactoryFrame} from "./factoryFrame.js";
 import {FactoryDataControl} from "./factoryDataControl.js";
 import {FactoryButton} from "./factoryButton.js";
 import { PHONE } from "../enum/enum_phone.js";
+import {FactoryBox} from "./factoryBox.js";
 
 export function FactoryView() {
   const factoryFrame = FactoryFrame();
   const factoryDataControl = FactoryDataControl();
   const factoryButton = FactoryButton();
+  const factoryBox = FactoryBox();
   const API = {};
 
   const createView = function(data,title){
@@ -96,12 +98,33 @@ export function FactoryView() {
       {
         field : [],
         factory : "factoryFrame.divSubmit"
+      },
+      {
+        field : [],
+        factory : "factoryFrame.divForgetPassword"
       }
     ];
     return createView(data, "Login Customer");
   }
   API.updateAvatar = function(){
     return factoryFrame.image();
+  }
+  API.forgotPassword = function() {
+    const data = [
+      {
+        field : [],
+        factory : "factoryBox.informationPanel"
+      },
+      {
+        field : ["nif"],
+        factory : "factoryDataControl.dniNieCif"
+      },
+      {
+        field : [],
+        factory : "factoryFrame.divSubmit"
+      }
+    ];
+    return createView(data, "Forgot Password");
   }
   return API;
 }  
