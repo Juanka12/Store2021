@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 20-12-2020 a las 16:09:39
+-- Tiempo de generación: 21-01-2021 a las 10:01:19
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.1
 
@@ -1691,7 +1691,11 @@ INSERT INTO `blocked_client` (`user`, `email`, `nif`, `lastDate`, `blocked`, `UU
 ('S412020', 'jcdmoralh01@iesarroyoharnina.es', '41734113S', '2020-12-12 22:12:18', 'blocked', '', '', ''),
 ('S412020', 'jcdmoralh01@iesarroyoharnina.es', '41734113S', '2020-12-12 22:12:44', 'unblocked', '798bd816-dbac-434a-85d4-34dba2120b93', '', ''),
 ('S412020', 'jcdmoralh01@iesarroyoharnina.es', '41734113S', '2020-12-12 22:13:04', 'blocked', '', '', ''),
-('S412020', 'jcdmoralh01@iesarroyoharnina.es', '41734113S', '2020-12-12 22:13:13', 'unblocked', '72d7e44d-82b6-4430-8579-29d8955116bf', '', '');
+('S412020', 'jcdmoralh01@iesarroyoharnina.es', '41734113S', '2020-12-12 22:13:13', 'unblocked', '72d7e44d-82b6-4430-8579-29d8955116bf', '', ''),
+('S412020', 'jcdmoralh01@iesarroyoharnina.es', '38905165K', '2021-01-12 08:23:18', 'blocked', '', '', ''),
+('S412020', 'jcdmoralh01@iesarroyoharnina.es', '38905165K', '2021-01-12 08:23:31', 'unblocked', '797c9144-8e38-46e6-90aa-ffd2ff83f375', '', ''),
+('S412020', 'jcdmoralh01@iesarroyoharnina.es', '38905165K', '2021-01-12 08:24:21', 'blocked', '', '', ''),
+('S412020', 'jcdmoralh01@iesarroyoharnina.es', '38905165K', '2021-01-12 08:24:53', 'unblocked', 'e2afd848-8bb1-45b7-b2aa-c32dce0be203', '', '');
 
 -- --------------------------------------------------------
 
@@ -1795,7 +1799,7 @@ INSERT INTO `client` (`idClient`, `nameClient`, `surnameClient`, `nifClient`, `m
 (15, 'Mario', 'Rodriguez Grande', '80231075Z', '644849921', 'mariorg455@gmail.com', '2000-02-15', '06011', 'avd/ Sinforiano Madroñero', 'avatar.png', 'mariorg455@gmail.com', '25f9e794323b453885f5181f1b624d0b', '2020-07-19 11:50:02', 0, NULL),
 (16, 'Felix José', 'Arteaga Trigo', '0895702S', '606218602', 'farteaga210791@gmail.com', '1991-07-21', '06209', 'c_florida_3', 'avatar.png', 'farteaga210791@gmail.com', '25f9e794323b453885f5181f1b624d0b', '2020-07-19 11:50:02', 0, NULL),
 (17, 'Alonso', 'Bermejo Perez', '07254091y', '616850899', 'bermejoalonso7@gmail.com', '1999-02-03', '06209', 'c_badajoz_4', 'avatar.png', 'bermejoalonso7@gmail.com', '25f9e794323b453885f5181f1b624d0b', '2020-07-19 11:50:02', 0, NULL),
-(18, 'Juan Carlos', 'Del Moral Hernandez', '45879010J', '616142558', 'juancdmh@gmail.com', '1996-11-11', '06200', 'C/republica de cuba', 'avatar.png', 'juancdmh@gmail.com', '25f9e794323b453885f5181f1b624d0b', '2020-07-19 11:50:02', 0, NULL),
+(18, 'Juan Carlos', 'Del Moral Hernandez', '45879010J', '616142558', 'juan', '1996-11-11', '06200', 'C/republica de cuba', 'avatar.png', 'juancdmh@gmail.com', '25f9e794323b453885f5181f1b624d0b', '2020-07-19 11:50:02', 0, NULL),
 (19, 'Manuel', 'Paredes Cerrato', '76268205K', '633173001', 'manuel99muh@gmail.com', '1999-02-05', '06210', 'Calle ronda 11', 'avatar.png', 'manuel99muh@gmail.com', '25f9e794323b453885f5181f1b624d0b', '2020-07-19 11:50:02', 0, NULL),
 (20, 'Francisco Javier', 'Hernandez Alvarez', '45876933Y', '692315438', '99franheal@gmail.com', '1999-05-16', '06200', 'Emilio nembrini 19', 'avatar.png', '99franheal@gmail.com', '25f9e794323b453885f5181f1b624d0b', '2020-07-19 11:50:02', 0, NULL),
 (21, 'Ismael', 'Galán Zambrano', '09213463P', '722177966', 'Ismaelgalzam1999@gmail.com', '1999-02-16', '06810', 'C/Sevilla Nº16', 'avatar.png', 'Ismaelgalzam1999@gmail.com', '25f9e794323b453885f5181f1b624d0b', '2020-07-19 11:50:02', 0, NULL),
@@ -1828,7 +1832,9 @@ INSERT INTO `client` (`idClient`, `nameClient`, `surnameClient`, `nifClient`, `m
 (72, 'Marilyn Monroe', 'Norma Jeane Mortenson', '60544562Y', '+1-6060464935', 'MarilynMonroe@bme.es', '1926-06-01', '06810', 'Ramón y Cajal 55', 'avatar.png', 'MarilynMonroe@bme.es', 'bd7f907466d0f930589b877e33d46451', '2020-11-19 19:18:01', 0, NULL),
 (73, 'Ava', 'Lavinia Gardner', '67472295R', '+1-9878787878', 'ava@gamil.com', '1922-12-24', '06810', 'Ramón y Cajal 55', 'avatar.png', 'ava@gamil.com', 'e47c136a0f07386bafa78f100e6e8c9d', '2020-11-19 19:24:55', 0, NULL),
 (75, 'Juan Carlos', 'prueba', '39112434Z', '+34-666999444', 'juprueba@gmail.com', '2020-11-13', '06200', 'paco', 'avatar.png', 'Z392020', '7f2f099b9884690f13f9e855cc62c3c3', '2020-11-21 16:11:09', 0, NULL),
-(76, 'Juan Carlos', 'nuevo', '41734113S', '+34-666333222', 'jcdmoralh01@iesarroyoharnina.es', '2020-11-14', '06300', 'ff', 'avatar.png', 'S412020', '5a0eae6a42a0264114c70eb02a8ef908', '2020-11-21 16:32:14', 0, NULL);
+(76, 'juanca', 'cambiado', '38905165K', '+34-666999445', 'jcdmoralh01@iesarroyoharnina.es', '2020-11-13', '06200', 'asda', 'avatar.png', 'S412020', '5a0eae6a42a0264114c70eb02a8ef908', '2020-11-21 16:32:14', 0, NULL),
+(94, 'Juan Carlos', 'dea', '38721162H', '+34-666692445', 'juancdmh@gmail.com', '2021-01-14', '06200', 'casa', 'avatar.png', 'H382021', '99b7c5fc807431f6e86056ab22271dee', '2021-01-08 23:19:41', 0, NULL),
+(95, 'nuevo', 'prueba', '13094317A', '+33-678935421', 'prueba12312@gmail.pas', '2021-01-21', '06200', 'calle', 'avatar.png', 'A132021', 'b737756d5406870b78a2b325716738b3', '2021-01-16 21:01:44', 0, NULL);
 
 --
 -- Disparadores `client`
@@ -114595,7 +114601,77 @@ INSERT INTO `visit_historic` (`idClient`, `ip`, `city`, `country`, `date`) VALUE
 (76, '81.0.7.223', 'Madrid', 'Spain', '2020-12-19 17:27:03'),
 (76, '81.0.7.223', 'Madrid', 'Spain', '2020-12-19 17:29:01'),
 (76, '81.0.7.223', 'Madrid', 'Spain', '2020-12-19 17:29:22'),
-(76, '81.0.7.223', 'Madrid', 'Spain', '2020-12-19 17:29:42');
+(76, '81.0.7.223', 'Madrid', 'Spain', '2020-12-19 17:29:42'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2020-12-23 14:11:16'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2020-12-23 14:11:35'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2020-12-23 14:11:49'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2020-12-23 14:20:46'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2020-12-23 14:20:59'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2020-12-23 14:21:17'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2021-01-02 21:42:47'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2021-01-02 21:50:49'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2021-01-02 21:51:17'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2021-01-02 21:51:33'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2021-01-02 22:01:12'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2021-01-02 22:15:17'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2021-01-02 23:13:18'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2021-01-02 23:33:49'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2021-01-02 23:43:29'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2021-01-03 17:58:20'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2021-01-03 21:59:36'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2021-01-03 22:04:08'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2021-01-03 22:14:16'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2021-01-03 23:09:29'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2021-01-08 20:42:45'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2021-01-08 20:55:03'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2021-01-08 21:12:05'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2021-01-08 21:12:20'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2021-01-08 21:12:27'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2021-01-08 21:12:53'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2021-01-08 21:13:14'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2021-01-08 21:13:22'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2021-01-08 21:15:23'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2021-01-08 21:15:29'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2021-01-08 21:24:24'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2021-01-08 21:30:21'),
+(90, '81.0.7.223', 'Madrid', 'Spain', '2021-01-08 22:39:57'),
+(92, '81.0.7.223', 'Madrid', 'Spain', '2021-01-08 22:52:41'),
+(93, '81.0.7.223', 'Madrid', 'Spain', '2021-01-08 22:54:49'),
+(94, '81.0.7.223', 'Madrid', 'Spain', '2021-01-08 23:19:41'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2021-01-10 21:17:52'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2021-01-10 21:25:08'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2021-01-10 21:25:32'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2021-01-10 21:25:44'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2021-01-10 21:29:10'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2021-01-10 21:29:20'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2021-01-10 21:29:43'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2021-01-10 21:29:49'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2021-01-10 21:41:52'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2021-01-10 21:42:02'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2021-01-10 21:44:49'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2021-01-12 08:23:44'),
+(95, '81.0.7.223', 'Madrid', 'Spain', '2021-01-16 21:01:44'),
+(76, '81.0.7.223', 'Madrid', 'Spain', '2021-01-19 09:18:04');
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `client`
+--
+ALTER TABLE `client`
+  ADD PRIMARY KEY (`idClient`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `client`
+--
+ALTER TABLE `client`
+  MODIFY `idClient` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
